@@ -40,7 +40,8 @@ class Repository(private val database: AsteroidDatabase) {
     suspend fun refreshAsteroids(context: Context) {
         withContext(Dispatchers.IO) {
             if (isNetworkAvailable(context)) {
-                val asteroids = RetrofitClientBuilder.retrofitService.getAsteroids(getApiKey())
+                val asteroids = RetrofitClientBuilder.retrofitService.getAsteroids(getApiKey(),getFormattedDate(),
+                    getFormattedDate(7))
                 val result = parseAsteroidsJsonResult(JSONObject(asteroids))
                 database.asteroidDao.insertAsteroids(*result.toTypedArray())
             }
