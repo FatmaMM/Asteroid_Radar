@@ -29,7 +29,7 @@ class MyApp : Application() {
     private fun delayedInit() {
         applicationScope.launch {
             val constraints = Constraints.Builder()
-                .setRequiredNetworkType(NetworkType.CONNECTED).build()
+                .setRequiredNetworkType(NetworkType.CONNECTED).setRequiresCharging(true).build()
 
             val repeatingRequest = PeriodicWorkRequestBuilder<RefresherWorker>(1, TimeUnit.DAYS)
                 .setConstraints(constraints).build()

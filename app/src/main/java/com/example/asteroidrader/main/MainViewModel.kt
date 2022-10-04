@@ -40,10 +40,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     init {
         viewModelScope.launch {
-            repo.refreshAsteroids(application)
-            refreshPictureOfDay()
-            if (!isNetworkAvailable(getApplication<Application?>().applicationContext))
-                asteroidList = repo.allAsteroids
+            try {
+                repo.refreshAsteroids(application)
+                refreshPictureOfDay()
+                if (!isNetworkAvailable(getApplication<Application?>().applicationContext))
+                    asteroidList = repo.allAsteroids
+            }catch (e:Exception){
+                Log.e("exception",e.message.toString())
+            }
         }
     }
 
